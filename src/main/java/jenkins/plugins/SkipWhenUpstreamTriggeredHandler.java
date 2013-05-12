@@ -7,9 +7,12 @@ import hudson.model.Queue.QueueDecisionHandler;
 import hudson.model.Queue.Task;
 
 import java.util.List;
+import java.util.Set;
+import java.util.logging.Logger;
 
 @Extension
 public class SkipWhenUpstreamTriggeredHandler extends QueueDecisionHandler {
+    private final Logger LOGGER = Logger.getLogger(Logger.class.getName());
 
     @Override
     public boolean shouldSchedule(Task p, List<Action> actions) {
@@ -17,7 +20,7 @@ public class SkipWhenUpstreamTriggeredHandler extends QueueDecisionHandler {
             if (((AbstractProject) p).getProperty(SkipWhenUpstreamTriggeredJobProperty.class) != null) {
 
                 // If any upstream projects are currently queued or building, skip scheduling
-                List<AbstractProject> upstreamProjects = ((AbstractProject) p).getUpstreamProjects();
+                Set<AbstractProject> upstreamProjects = ((AbstractProject) p).getTransitiveUpstreamProjects();
                 for (AbstractProject upstreamProject : upstreamProjects) {
                     if (upstreamProject.isBuilding()) {
                         return false;
