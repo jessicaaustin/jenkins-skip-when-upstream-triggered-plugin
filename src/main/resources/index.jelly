@@ -1,0 +1,6 @@
+<!--
+  Description for the plugins page.
+-->
+<div>
+  Allows user to skip scheduling a job if any of its upstream projects are currently building or in queue. Helps prevent duplicate execution of jobs.
+</div>

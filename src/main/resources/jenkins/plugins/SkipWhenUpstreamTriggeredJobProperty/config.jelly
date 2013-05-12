@@ -1,0 +1,7 @@
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+    <f:optionalBlock name="skipWhenUpstreamTriggered"
+                     title="${%Skip build if any upstream projects are currently building or queued}"
+                     checked="${instance.getSkipWhenUpstreamTriggered()}"
+                     help="/plugin/skip-when-upstream-triggered/help/help.html">
+    </f:optionalBlock>
+</j:jelly>
